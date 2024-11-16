@@ -95,14 +95,14 @@
       <!-- Like and Comment Icons with counts -->
       <div class="flex space-x-4 mt-4 mb-4">
         <!-- Like Icon with count -->
-        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+        <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
                 <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
             </svg>
             <span class="text-sm">150</span>
         </button>
         <!-- Comment Icon with count -->
-        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+        <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
                 <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
             </svg>
@@ -127,14 +127,14 @@
   <!-- Like and Comment Icons with counts -->
   <div class="flex space-x-4 mt-4 mb-4">
     <!-- Like Icon with count -->
-    <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+    <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
         <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
             <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
         </svg>
         <span class="text-sm">150</span>
     </button>
     <!-- Comment Icon with count -->
-    <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+    <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
         <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
             <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
         </svg>
@@ -143,6 +143,11 @@
 </div>
   </div>
   </main>
-
+<script>
+    // Function to redirect to login page
+    function goToLogin() {
+        window.location.href = "login.html";  // Redirect to login.html
+    }
+  </script>
 </body>
 </html>
