@@ -25,6 +25,43 @@
         background-color: rgb(24,24,24);
     }
 
+    .notification-sidebar {
+      position: fixed; 
+      top: 0;
+      left: -250px; 
+      width: 250px;
+      height: 100vh; 
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease-in-out; 
+      z-index: 20;
+    }
+    
+    .notification-sidebar.show {
+      left: 250px; 
+    }
+    
+    .notification-content {
+      padding: 20px;
+    }
+    
+    #heart-icon {
+      cursor: pointer;
+      font-size: 30px;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .sidebar-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      margin-right: 20px; 
+    }
   </style>
 
 </head>
@@ -61,12 +98,14 @@
                 <path d="M13 11v-7h-2v7h-7v2h7v7h2v-7h7v-2h-7z"/>
             </svg>
         </a>
-        <!-- Heart Icon -->
-        <a href="#" class="hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
-                <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
-            </svg>
-        </a>
+        
+       <!-- Heart Icon with Click Event -->
+       <a href="#" class="hover:text-white" id="heart-icon" onclick="toggleSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+            <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+        </svg>
+    </a>
+
         <!-- Profile Icon -->
         <a href="#" class="hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
@@ -75,6 +114,14 @@
         </a>
     </div>
 </aside>
+
+<!-- Notification Sidebar -->
+<div id="notificationSidebar" class="notification-sidebar">
+    <div class="notification-content">
+      <h2 class="text-lg font-semibold">Notification</h2>
+      <p class="mt-4">You have new updates!</p>
+    </div>
+  </div>
 
   <!-- Main Content Area -->
   <main class="flex-1 flex flex-col items-center justify-start text-gray-300">
@@ -109,70 +156,54 @@
                 </div>
             </div>
 
-        <!-- Divider Line -->
-      <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+      
 
-          <div class="flex items-center space-x-2 mb-2">
-              <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
-              <div>
-                  <p class="text-sm font-semibold text-white">delishkitchen.tv</p>
-                  <span class="text-xs text-gray-400">4h ago</span>
-              </div>
-          </div>
-          <p class="text-gray-200 mb-4">
-              厚切り豚ロースのステーキに...
-          </p>
-          <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
-          <!-- Like and Comment Icons with counts -->
-          <div class="flex space-x-4 mt-4 mb-4">
-            <!-- Like Icon with count -->
-            <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                    <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
-                </svg>
-                <span class="text-sm">150</span>
-            </button>
-            <!-- Comment Icon with count -->
-            <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+        <div class="post-container">
+            <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+        
+            <div class="flex items-center space-x-2 mb-2">
+                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
+                <div>
+                    <p class="text-sm font-semibold text-white">delishkitchen.tv</p>
+                    <span class="text-xs text-gray-400">4h ago</span>
+                </div>
+            </div>
+            <p class="text-gray-200 mb-4">厚切り豚ロースのステーキに...</p>
+            <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
+        
+            <!-- Like and Comment Icons with counts -->
+            <div class="flex space-x-4 mt-4 mb-4">
+                <!-- Like Button -->
+                <button id="like-btn" class="flex items-center space-x-1 text-gray-400 hover:text-white" onclick="toggleLike(this)">
+                    <svg id="like-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                        <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+                    </svg>
+                    <span id="like-count" class="text-sm">150</span>
+                </button>
+        
+               <!-- Comment Button -->
+               <button class="flex items-center space-x-1 text-gray-400 hover:text-white" onclick="toggleCommentSection()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
                     <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
                 </svg>
-                <span class="text-sm">20</span>
+                <span id="comment-count" class="text-sm">0</span>
             </button>
-        </div>    
+        </div>
+    
+        <!-- Comment Section -->
+        <div id="comment-section" class="hidden mt-4">
+            <div id="comments-container" class="space-y-2">
+                <!-- Comments will appear here -->
+            </div>
+            <div class="flex mt-2 items-start">
+                <img class="h-6 w-6 rounded-full mt-1" src="https://via.placeholder.com/150" alt="User Avatar">
+                <input id="comment-input" type="text" placeholder="Add a comment..." class="flex-grow ml-2 p-1 rounded bg-gray-800 text-white border border-gray-700" onkeydown="if(event.key === 'Enter') addComment()">
+                <button id="send-btn" class="ml-2 p-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600" onclick="addComment()">Send</button>
+            </div>
+        </div>
+    </div> 
 
-        <!-- Divider Line -->
-      <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
 
-        <div class="flex items-center space-x-2 mb-2">
-          <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
-          <div>
-              <p class="text-sm font-semibold text-white">delishkitchen.tv</p>
-              <span class="text-xs text-gray-400">4h ago</span>
-          </div>
-      </div>
-      <p class="text-gray-200 mb-4">
-          厚切り豚ロースのステーキに...
-      </p>
-      <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
-      <!-- Like and Comment Icons with counts -->
-      <div class="flex space-x-4 mt-4 mb-4">
-        <!-- Like Icon with count -->
-        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
-            </svg>
-            <span class="text-sm">150</span>
-        </button>
-        <!-- Comment Icon with count -->
-        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
-            </svg>
-            <span class="text-sm">20</span>
-        </button>
-    </div>
-      </div>
   </main>
   <script>
     function toggleDropdown() {
@@ -194,6 +225,86 @@
         dropdownMenu.classList.add('hidden');
       }
     });
-  </script>
+
+    function toggleLike(button) {
+        const likeIcon = button.querySelector('#like-icon');
+        const likeCount = button.querySelector('#like-count');
+        let count = parseInt(likeCount.textContent, 10);
+    
+        // Toggle fill and stroke
+        if (likeIcon.classList.contains('liked')) {
+            likeIcon.classList.remove('liked');
+            likeIcon.setAttribute('fill', 'none');
+            likeCount.textContent = count - 1;
+        } else {
+            likeIcon.classList.add('liked');
+            likeIcon.setAttribute('fill', 'currentColor');
+            likeCount.textContent = count + 1;
+        }
+    }
+    function toggleCommentSection() {
+        const commentSection = document.getElementById('comment-section');
+        commentSection.classList.toggle('hidden');
+    }
+    
+    // Add new comment and update comment count on the button
+    function addComment() {
+        const commentInput = document.getElementById('comment-input');
+        const commentsContainer = document.getElementById('comments-container');
+        const commentCount = document.getElementById('comment-count');
+        const commentText = commentInput.value.trim();
+    
+        if (commentText) {
+            // Create new comment element
+            const newComment = document.createElement('div');
+            newComment.classList.add('flex', 'items-start', 'space-x-2');
+            newComment.innerHTML = `
+                <img class="h-6 w-6 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                <div class="bg-gray-800 p-2 rounded text-white w-full">
+                    <p class="text-sm font-semibold">User Name</p>
+                    <p class="text-sm">${commentText}</p>
+                </div>
+            `;
+    
+            // Add the new comment to the container
+            commentsContainer.appendChild(newComment);
+    
+            // Clear the input
+            commentInput.value = '';
+    
+            // Update the comment counter on the button
+            let currentCount = parseInt(commentCount.textContent);
+            commentCount.textContent = currentCount + 1;
+        }
+    }
+    
+    // Lấy các phần tử cần thiết
+    const heartButton = document.getElementById('heart-icon');
+    const sidebar = document.querySelector('.notification-sidebar');
+
+    // Biến để theo dõi trạng thái của sidebar
+    let isSidebarVisible = false;
+
+    // Hàm toggleSidebar
+    function toggleSidebar() {
+    // Thay đổi trạng thái sidebar
+    if (isSidebarVisible) {
+        sidebar.classList.remove('show'); // Ẩn sidebar
+    } else {
+        sidebar.classList.add('show'); // Hiện sidebar
+    }
+    isSidebarVisible = !isSidebarVisible; // Lật lại trạng thái
+    }
+    </script>
+    
+    <style>
+        .hidden {
+            display: none;
+        }
+        #send-btn {
+            cursor: pointer;
+        }
+    </style>
+
 </body>
 </html>
