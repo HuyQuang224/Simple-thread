@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <title>Home Feed</title>
+  <style>
+    /* Sidebar */
+    aside {
+      z-index: 10; /* Higher than the header */
+    }
+    
+    /* Header */
+    header {
+      z-index: 5; /* Lower than the sidebar */
+    }
+
+    .postPosition {
+        top: 5.5rem;
+        right: 30.3rem;
+    }
+
+    .postBackground {
+        background-color: rgb(24,24,24);
+    }
+
+  </style>
+
+</head>
+<body class="bg-black text-white h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="fixed w-16 flex flex-col items-center py-4 space-y-8 bg-black text-gray-400">
+    <!-- Logo -->
+    <div class="text-2xl mb-28">
+      <a href="#" class="text-2xl font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="40px" height="40px" viewBox="0 0 128 128" enable-background="new 0 0 128 128">
+          <path fill="none" stroke="white" stroke-width="8" stroke-miterlimit="10" d="M111.609,42.725 c-1.063-4.253-8.924-34.69-46.405-34.69c-37.557,0-49.729,28.129-48.759,59.867c0.873,28.595,15.342,52.063,48.304,52.063 c23.924,0,41.43-13.481,41.43-31.367c0-14.316-7.306-21.643-19.785-25.709C66.115,56.282,48.245,61.55,46.52,74.054 c-1.367,9.911,7.747,17.81,19.937,16.861c15.868-1.236,20.278-15.456,20.278-27.873c0-20.278-11.051-26.013-19.823-26.468 c-14.904-0.774-20.203,9.228-20.203,9.228"/>
+        </svg>
+      </a>  
+    </div>
+    
+    <!-- Navigation Icons (moved up by 2rem) -->
+    <div class="flex flex-col space-y-10">
+        <!-- Home Icon -->
+        <a href="#" class="hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+                <path d="M12 3l9 9-1.5 1.5-7.5-7.5v13h-2v-13l-7.5 7.5-1.5-1.5 9-9z"/>
+            </svg>
+        </a>
+        <!-- Search Icon -->
+        <a href="#" class="hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+                <path d="M21.707 20.293l-4.761-4.761c1.062-1.46 1.702-3.243 1.702-5.168 0-4.418-3.582-8-8-8s-8 3.582-8 8 3.582 8 8 8c1.925 0 3.708-.64 5.168-1.702l4.761 4.761 1.414-1.414zm-9.707-4.293c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6z"/>
+            </svg>
+        </a>
+        <!-- Add Icon -->
+        <a href="#" class="hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+                <path d="M13 11v-7h-2v7h-7v2h7v7h2v-7h7v-2h-7z"/>
+            </svg>
+        </a>
+        <!-- Heart Icon -->
+        <a href="#" class="hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+                <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+            </svg>
+        </a>
+        <!-- Profile Icon -->
+        <a href="#" class="hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 24 24">
+                <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.86 0-7 3.141-7 7h2c0-2.762 2.238-5 5-5s5 2.238 5 5h2c0-3.859-3.14-7-7-7z"/>
+            </svg>
+        </a>
+    </div>
+</aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-start text-gray-300">
+      <!-- Header -->
+      <header class="fixed w-full flex justify-center items-center bg-black mb-4 px-4 p-4">
+        <div class="relative inline-block text-left">
+            <!-- Button -->
+            <button onclick="toggleDropdown()" class="flex items-center justify-center text-base font-semibold text-center text-white">
+                <span id="buttonText">All users</span>
+                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="dropdownMenu" class="hidden absolute mt-2 w-48 rounded-lg shadow-lg bg-gray-950 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div class="py-1 text-white">
+                    <a href="#" onclick="updateButtonText('All users')" class="block px-4 py-2 text-sm hover:bg-gray-700">All users</a>
+                    <a href="#" onclick="updateButtonText('Following')" class="block px-4 py-2 text-sm hover:bg-gray-700">Following</a>
+                </div>
+              </div>
+        </div>
+      </header>
+
+      <!-- Post Container -->
+      <div class="w-2/5 postBackground pt-4 pr-8 pl-8 mt-16 rounded-lg">
+            <div class="flex items-center space-x-2 mb-2">
+                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
+                <div>
+                    <p class="text-sm text-gray-400">What's new?</p>
+                </div>
+                <div>
+                    <button class="text-sm absolute postPosition text-white bg-black rounded-md font-semibold border-2 px-3 py-1">Post</button>
+                </div>
+            </div>
+
+        <!-- Divider Line -->
+      <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+
+          <div class="flex items-center space-x-2 mb-2">
+              <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
+              <div>
+                  <p class="text-sm font-semibold text-white">delishkitchen.tv</p>
+                  <span class="text-xs text-gray-400">4h ago</span>
+              </div>
+          </div>
+          <p class="text-gray-200 mb-4">
+              厚切り豚ロースのステーキに...
+          </p>
+          <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
+          <!-- Like and Comment Icons with counts -->
+          <div class="flex space-x-4 mt-4 mb-4">
+            <!-- Like Icon with count -->
+            <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                    <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+                </svg>
+                <span class="text-sm">150</span>
+            </button>
+            <!-- Comment Icon with count -->
+            <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                    <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
+                </svg>
+                <span class="text-sm">20</span>
+            </button>
+        </div>    
+
+        <!-- Divider Line -->
+      <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+
+        <div class="flex items-center space-x-2 mb-2">
+          <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar">
+          <div>
+              <p class="text-sm font-semibold text-white">delishkitchen.tv</p>
+              <span class="text-xs text-gray-400">4h ago</span>
+          </div>
+      </div>
+      <p class="text-gray-200 mb-4">
+          厚切り豚ロースのステーキに...
+      </p>
+      <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
+      <!-- Like and Comment Icons with counts -->
+      <div class="flex space-x-4 mt-4 mb-4">
+        <!-- Like Icon with count -->
+        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+            </svg>
+            <span class="text-sm">150</span>
+        </button>
+        <!-- Comment Icon with count -->
+        <button class="flex items-center space-x-1 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
+            </svg>
+            <span class="text-sm">20</span>
+        </button>
+    </div>
+      </div>
+  </main>
+  <script>
+    function toggleDropdown() {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.classList.toggle('hidden');
+    }
+
+    function updateButtonText(text) {
+        document.getElementById("buttonText").textContent = text;
+        toggleDropdown(); // Close the dropdown after selection
+    }
+
+    // Close the dropdown if clicked outside
+    window.addEventListener('click', function(e) {
+      const button = document.querySelector('button');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+
+      if (!button.contains(e.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
