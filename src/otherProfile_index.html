@@ -272,25 +272,6 @@
 
 <script src="otherProfile_index.js"></script>
 
-<script>
-    // Lấy các phần tử cần thiết
-    const heartButton = document.getElementById('heart-icon');
-    const sidebar = document.querySelector('.notification-sidebar');
-
-    // Biến để theo dõi trạng thái của sidebar
-    let isSidebarVisible = false;
-
-    // Hàm toggleSidebar
-    function toggleSidebar() {
-        // Thay đổi trạng thái sidebar
-        if (isSidebarVisible) {
-            sidebar.classList.remove('show'); // Ẩn sidebar
-        } else {
-            sidebar.classList.add('show'); // Hiện sidebar
-        }
-        isSidebarVisible = !isSidebarVisible; // Lật lại trạng thái
-    }
-</script>
 <style>
     .notification-sidebar {
       position: fixed; 
