@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Home Feed</title>
+  <style>
+    /* Sidebar */
+    aside {
+      z-index: 10; /* Higher than the header */
+    }
+    
+    /* Header */
+    header {
+      z-index: 5; /* Lower than the sidebar */
+    }
+
+    .postPosition {
+        top: 5.5rem;
+        right: 30.3rem;
+    }
+
+    .postBackground {
+        background-color: rgb(24,24,24);
+    }
+
+    .notification-sidebar {
+      position: fixed; 
+      top: 0;
+      left: -250px; 
+      width: 250px;
+      height: 100vh; 
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease-in-out; 
+      z-index: 20;
+    }
+    
+    .notification-sidebar.show {
+      left: 250px; 
+    }
+    
+    .notification-content {
+      padding: 20px;
+    }
+    
+    #heart-icon {
+      cursor: pointer;
+      font-size: 30px;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .sidebar-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      margin-right: 20px; 
+    }
+  </style>
+
+</head>
+<body class="bg-black text-white h-screen flex ">
+
+        <aside class="fixed">
+            <!-- Sidebar -->
+            <div class="container flex min-h-screen">
+                <div class="w-16 bg-black flex flex-col items-center py-5">
+                    <!-- Logo Threads -->
+                    <div class="mt-0">
+                        <a href="./homeFeed.html" class="text-2xl font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="36px" height="36px" viewBox="0 0 128 128" enable-background="new 0 0 128 128">
+                            <path fill="none" stroke="white" stroke-width="10" stroke-miterlimit="10" d="M111.609,42.725 c-1.063-4.253-8.924-34.69-46.405-34.69c-37.557,0-49.729,28.129-48.759,59.867c0.873,28.595,15.342,52.063,48.304,52.063 c23.924,0,41.43-13.481,41.43-31.367c0-14.316-7.306-21.643-19.785-25.709C66.115,56.282,48.245,61.55,46.52,74.054 c-1.367,9.911,7.747,17.81,19.937,16.861c15.868-1.236,20.278-15.456,20.278-27.873c0-20.278-11.051-26.013-19.823-26.468 c-14.904-0.774-20.203,9.228-20.203,9.228"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- Middle Section Icons -->
+                    <div class="flex flex-col space-y-8 my-auto">
+                        <a href="./homeFeed.html" class="text-gray-500 hover:text-white"><span class="material-symbols-outlined"> home </span></a>
+                        <a href="#"  class="text-gray-500 hover:text-white open-thread-modal" ><span class="material-symbols-outlined"> add </span></a>
+                        <a href="#" id="heart-icon" class="text-gray-500 hover:text-white" onclick="toggleSidebar()"><span class="material-symbols-outlined"> favorite </span></a>
+                        <a href="./userProfile.html" class="text-gray-500 hover:text-white"><span class="material-symbols-outlined"> person </span></a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+<!-- Notification Sidebar -->
+<div id="notificationSidebar" class="notification-sidebar">
+    <div class="notification-content">
+      <h2 class="text-lg font-semibold">Notification</h2>
+      <p class="mt-4">You have new updates!</p>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-start text-gray-300">
+      <!-- Header -->
+      <header class="fixed w-full flex justify-center items-center bg-black mb-4 px-4 p-4">
+        <div class="relative inline-block text-left">
+            <!-- Button -->
+            <button onclick="toggleDropdown()" class="flex items-center justify-center text-base font-semibold text-center text-white">
+                <span id="buttonText">All users</span>
+                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="dropdownMenu" class="hidden absolute mt-2 w-48 rounded-lg shadow-lg bg-gray-950 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div class="py-1 text-white">
+                    <a href="#" onclick="updateButtonText('All users')" class="block px-4 py-2 text-sm hover:bg-gray-700">All users</a>
+                    <a href="#" onclick="updateButtonText('Following')" class="block px-4 py-2 text-sm hover:bg-gray-700">Following</a>
+                </div>
+            </div>
+        </div>
+        <!-- Log in Button (positioned absolute to top-right) -->
+        <button type="button" onclick="window.location.href='index.html'" class="px-3 py-2 bg-red-600 text-white font-semibold rounded-md text-sm absolute top-0.5 right-10 mt-3">Log out</button>
+        
+      </header>
+
+      <!-- Post Container -->
+      <div class="w-2/5 postBackground pt-4 pr-8 pl-8 mt-16 rounded-lg">
+            <div class="open-thread-modal flex items-center space-x-2 mb-2">
+                <div>
+                    <img src="./anhdaidien.jpg" alt="#" class="w-10 h-10 rounded-full">
+                </div>
+                <input type="text" placeholder="What's new?" class="text-sm postBackground text-gray-400"/>
+                <button class="text-sm absolute postPosition text-white bg-black rounded-md font-semibold border-2 px-3 py-1">Post</button>
+            </div>
+
+        <div class="post-container">
+            <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+        
+            <div class="flex items-center space-x-2 mb-2">
+                <a href="./otherProfile.html"><img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="Avatar"></a>
+                <div>
+                    <a href="./otherProfile.html"><p class="text-sm font-semibold text-white">hqh2001</p></a>
+                    <span class="text-xs text-gray-400">4h ago</span>
+                </div>
+            </div>
+            <p class="text-gray-200 mb-4">New day new me</p>
+            <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
+        
+            <!-- Like and Comment Icons with counts -->
+            <div class="flex space-x-4 mt-4 mb-4">
+                <!-- Like Button -->
+                <button id="like-btn" class="flex items-center space-x-1 text-gray-400 hover:text-white" onclick="toggleLike(this)">
+                    <svg id="like-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                        <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+                    </svg>
+                    <span id="like-count" class="text-sm">150</span>
+                </button>
+        
+               <!-- Comment Button -->
+               <button class="flex items-center space-x-1 text-gray-400 hover:text-white" onclick="toggleCommentSection()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                    <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
+                </svg>
+                <span id="comment-count" class="text-sm">0</span>
+            </button>
+        </div>
+    
+        <!-- Comment Section -->
+        <div id="comment-section" class="hidden mt-4">
+            <div id="comments-container" class="space-y-2">
+                <!-- Comments will appear here -->
+            </div>
+            <div class="flex mt-2 items-start">
+                <img class="h-6 w-6 rounded-full mt-1" src="./anhdaidien.jpg" alt="User Avatar">
+                <input id="comment-input" type="text" placeholder="Add a comment..." class="flex-grow ml-2 p-1 rounded bg-gray-800 text-white border border-gray-700" onkeydown="if(event.key === 'Enter') addComment()">
+                <button id="send-btn" class="ml-2 p-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600" onclick="addComment()">Send</button>
+            </div>
+        </div>
+    </div> 
+
+<div  class="open-thread-modal fixed bottom-4 right-4 bg-gray-900 text-white w-16 h-16 flex items-center justify-center rounded-md shadow-lg cursor-pointer hover:bg-blue-600">
+    <span  class="text-2xl">+</span>
+</div>
+</main>
+
+<div id="threadOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- Modal Container -->
+    <div class="bg-neutral-900 text-white rounded-xl w-full max-w-lg p-6 shadow-lg">
+        <!-- Header with Close Button -->
+        <div class="flex justify-between items-center mb-4">
+            <button id="closeThreadOverlay" class="text-gray-400">Cancel</button>
+            <h2 class="text-lg font-semibold">New thread</h2>
+        </div>
+        
+        <!-- Thread Input Section -->
+        <div class="space-y-4">
+            <div class="flex items-start">
+                <img src="./anhdaidien.jpg" alt="Profile Picture" class="w-10 h-10 rounded-full mr-3">
+                <div class="w-full">
+                    <p class="text-white font-semibold">hkkk_yh</p>
+                    <textarea placeholder="What's new?" class="w-full bg-transparent border-none outline-none text-white mt-2 p-0 resize-none" rows="4"></textarea>
+                </div>
+            </div>
+            
+            <!-- Icons and Options Row -->
+            <div class="flex space-x-4 text-gray-400">
+                <span class="material-symbols-outlined">image</span>
+                <span class="material-symbols-outlined">gif</span>
+                <span class="material-symbols-outlined">poll</span>
+                <span class="material-symbols-outlined">emoji_emotions</span>
+                <button class="text-gray-400">Add to thread</button>
+            </div>
+            
+            <!-- Footer Note and Submit Button -->
+            <p class="text-gray-500 text-sm">Your followers can reply & quote</p>
+            <div class="text-right">
+                <button class="bg-blue-500 text-white px-4 py-1 rounded opacity-50 cursor-not-allowed">Post</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+
+  <script>
+    function toggleDropdown() {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.classList.toggle('hidden');
+    }
+
+    function updateButtonText(text) {
+        document.getElementById("buttonText").textContent = text;
+        toggleDropdown(); // Close the dropdown after selection
+    }
+
+    // Close the dropdown if clicked outside
+    window.addEventListener('click', function(e) {
+      const button = document.querySelector('button');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+
+      if (!button.contains(e.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
+
+    function toggleLike(button) {
+        const likeIcon = button.querySelector('#like-icon');
+        const likeCount = button.querySelector('#like-count');
+        let count = parseInt(likeCount.textContent, 10);
+    
+        // Toggle fill and stroke
+        if (likeIcon.classList.contains('liked')) {
+            likeIcon.classList.remove('liked');
+            likeIcon.setAttribute('fill', 'none');
+            likeCount.textContent = count - 1;
+        } else {
+            likeIcon.classList.add('liked');
+            likeIcon.setAttribute('fill', 'currentColor');
+            likeCount.textContent = count + 1;
+        }
+    }
+    function toggleCommentSection() {
+        const commentSection = document.getElementById('comment-section');
+        commentSection.classList.toggle('hidden');
+    }
+    
+    // Add new comment and update comment count on the button
+    function addComment() {
+        const commentInput = document.getElementById('comment-input');
+        const commentsContainer = document.getElementById('comments-container');
+        const commentCount = document.getElementById('comment-count');
+        const commentText = commentInput.value.trim();
+    
+        if (commentText) {
+            // Create new comment element
+            const newComment = document.createElement('div');
+            newComment.classList.add('flex', 'items-start', 'space-x-2');
+            newComment.innerHTML = `
+                <img class="h-6 w-6 rounded-full" src="./anhdaidien.jpg" alt="User Avatar">
+                <div class="bg-gray-800 p-2 rounded text-white w-full">
+                    <p class="text-sm font-semibold">User Name</p>
+                    <p class="text-sm">${commentText}</p>
+                </div>
+            `;
+    
+            // Add the new comment to the container
+            commentsContainer.appendChild(newComment);
+    
+            // Clear the input
+            commentInput.value = '';
+    
+            // Update the comment counter on the button
+            let currentCount = parseInt(commentCount.textContent);
+            commentCount.textContent = currentCount + 1;
+        }
+    }
+    
+    // Lấy các phần tử cần thiết
+    const heartButton = document.getElementById('heart-icon');
+    const sidebar = document.querySelector('.notification-sidebar');
+
+    // Biến để theo dõi trạng thái của sidebar
+    let isSidebarVisible = false;
+
+    // Hàm toggleSidebar
+    function toggleSidebar() {
+    // Thay đổi trạng thái sidebar
+    if (isSidebarVisible) {
+        sidebar.classList.remove('show'); // Ẩn sidebar
+    } else {
+        sidebar.classList.add('show'); // Hiện sidebar
+    }
+    isSidebarVisible = !isSidebarVisible; // Lật lại trạng thái
+    }
+
+
+    // JavaScript for Toggling Overlay
+const openThreadModalButtons = document.querySelectorAll('.open-thread-modal');
+const threadOverlay = document.getElementById('threadOverlay');
+const closeThreadOverlay = document.getElementById('closeThreadOverlay');
+
+// Show overlay when any button with the "open-thread-modal" class is clicked
+openThreadModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        threadOverlay.classList.remove('hidden');
+    });
+});
+
+// Hide overlay when "Huỷ" button is clicked
+closeThreadOverlay.addEventListener('click', () => {
+    threadOverlay.classList.add('hidden');
+});
+
+// Hide overlay when clicking outside of the modal content
+threadOverlay.addEventListener('click', (event) => {
+    if (event.target === threadOverlay) {
+        threadOverlay.classList.add('hidden');
+    }
+});
+    </script>
+
+</body>
+</html>

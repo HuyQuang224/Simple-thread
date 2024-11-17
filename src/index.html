@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Home</title>
+  <style>
+    /* Sidebar */
+    aside {
+      z-index: 10; /* Higher than the header */
+    }
+    
+    /* Header */
+    header {
+      z-index: 5; /* Lower than the sidebar */
+    }
+
+    .postPosition {
+        top: 5.5rem;
+        right: 30.3rem;
+    }
+
+    .postBackground {
+        background-color: rgb(24,24,24);
+    }
+
+    .notification-sidebar {
+      position: fixed; 
+      top: 0;
+      left: -250px; 
+      width: 250px;
+      height: 100vh; 
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease-in-out; 
+      z-index: 20;
+    }
+    
+    .notification-sidebar.show {
+      left: 250px; 
+    }
+    
+    .notification-content {
+      padding: 20px;
+    }
+    
+    #heart-icon {
+      cursor: pointer;
+      font-size: 30px;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .sidebar-container {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      margin-right: 20px; 
+    }
+  </style>
+
+</head>
+<body class="bg-black text-white h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="fixed">
+    <!-- Sidebar -->
+    <div class="container flex min-h-screen">
+        <div class="w-16 bg-black flex flex-col items-center py-5">
+            <!-- Logo Threads -->
+            <div class="mt-0">
+                <a href="./index.html" class="text-2xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="36px" height="36px" viewBox="0 0 128 128" enable-background="new 0 0 128 128">
+                    <path fill="none" stroke="white" stroke-width="10" stroke-miterlimit="10" d="M111.609,42.725 c-1.063-4.253-8.924-34.69-46.405-34.69c-37.557,0-49.729,28.129-48.759,59.867c0.873,28.595,15.342,52.063,48.304,52.063 c23.924,0,41.43-13.481,41.43-31.367c0-14.316-7.306-21.643-19.785-25.709C66.115,56.282,48.245,61.55,46.52,74.054 c-1.367,9.911,7.747,17.81,19.937,16.861c15.868-1.236,20.278-15.456,20.278-27.873c0-20.278-11.051-26.013-19.823-26.468 c-14.904-0.774-20.203,9.228-20.203,9.228"/>
+                    </svg>
+                </a>
+            </div>
+            <!-- Middle Section Icons -->
+            <div class="flex flex-col space-y-8 my-auto">
+                <a href="./index.html" class="text-gray-500 hover:text-white"><span class="material-symbols-outlined"> home </span></a>
+                <a href="./login.html"  class="text-gray-500 hover:text-white open-thread-modal" ><span class="material-symbols-outlined"> add </span></a>
+                <a href="./login.html" id="heart-icon" class="text-gray-500 hover:text-white" onclick="toggleSidebar()"><span class="material-symbols-outlined"> favorite </span></a>
+                <a href="./login.html" class="text-gray-500 hover:text-white"><span class="material-symbols-outlined"> person </span></a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-start text-gray-300">
+      <!-- Header -->
+      <header class="fixed w-full flex justify-center items-center bg-black mb-4 px-4 p-4">
+          <h1 class="text-base font-semibold text-center text-white">Home</h1>
+          <!-- Log in Button (positioned absolute to top-right) -->
+          <button type="button" onclick="window.location.href='login.html'" class="px-4 py-2 bg-white text-black font-semibold rounded-md text-sm absolute top-0.5 right-4 mt-3">Log in</button>
+      </header>
+
+    <!-- Post Container -->
+    <div class="w-2/5 postBackground pt-4 pr-8 pl-8 mt-16 rounded-lg">
+      <div class="flex items-center space-x-2 mb-2">
+          <a href="./otherProfile_index.html"><img class="h-10 w-10 rounded-full" src="./anhdaidien.jpg" alt="Avatar"></a>
+          <div>
+              <a href="./otherProfile_index.html"><p class="text-sm font-semibold text-white">hqh2001</p></a>
+              <span class="text-xs text-gray-400">4h ago</span>
+          </div>
+      </div>
+      <p class="text-gray-200 mb-4">
+          New day new me
+      </p>
+      <img class="w-full rounded-lg" src="https://via.placeholder.com/400x200" alt="Post Image">
+      <!-- Like and Comment Icons with counts -->
+      <div class="flex space-x-4 mt-4 mb-4">
+        <!-- Like Icon with count -->
+        <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z"/>
+            </svg>
+            <span class="text-sm">150</span>
+        </button>
+        <!-- Comment Icon with count -->
+        <button onclick="goToLogin()" class="flex items-center space-x-1 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="postBackground" stroke="white" stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                <path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"/>
+            </svg>
+            <span class="text-sm">20</span>
+        </button>
+    </div>    
+  </div>
+  </main>
+<script>
+    // Function to redirect to login page
+    function goToLogin() {
+        window.location.href = "login.html";  // Redirect to login.html
+    }
+  </script>
+</body>
+</html>
