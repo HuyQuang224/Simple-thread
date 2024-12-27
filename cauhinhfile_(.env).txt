@@ -1,0 +1,7 @@
+EMAIL_HOST=smtp.gmail.com         # Địa chỉ máy chủ SMTP (Simple Mail Transfer Protocol), ở đây là máy chủ của Gmail.
+EMAIL_PORT=587                    # Cổng dùng để gửi email qua giao thức SMTP, 587 là cổng hỗ trợ STARTTLS.
+EMAIL_USER=huyquangtest1@gmail.com # Tên tài khoản email sẽ được sử dụng để gửi email.
+EMAIL_PASS=lvfo atix rovt bqsj      # Mật khẩu ứng dụng hoặc mật khẩu email (có thể đã sử dụng mã hóa hoặc tạo từ ứng dụng).
+JWT_SECRET=123456                 # Khóa bí mật để ký và xác thực JWT (JSON Web Token), đảm bảo tính bảo mật.
+BASE_URL=http://localhost:3000    # Địa chỉ URL gốc của ứng dụng, thường được sử dụng trong môi trường phát triển cục bộ.
+SESSION_SECRET=BIUEOAOBA          # Khóa bí mật dùng để mã hóa phiên làm việc (sessions) của người dùng.
