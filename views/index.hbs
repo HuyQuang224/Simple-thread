@@ -1,0 +1,97 @@
+{{#> layout }}
+
+<main class="flex-1 flex flex-col items-center justify-start text-gray-300">
+	{{#> header}}
+    {{/header}}
+	<!-- Thread Form -->
+	<div class="w-2/5 postBackground pt-4 pr-8 pl-8 mt-16 rounded-lg">
+            <div class="open-thread-modal flex items-center space-x-2 mb-2">
+			<div>
+                    <img src="/assets/images/anhdaidien.jpg" alt="#" class="w-10 h-10 rounded-full">
+            </div>
+			<form action='/' method='POST' enctype="multipart/form-data">
+				<textarea
+					class='form-control mb-2'
+					rows='3'
+                    cols = '55'
+					placeholder="What's on your mind?"
+					name='content'
+					required
+				></textarea>
+				<div class='d-flex justify-content-between align-items-center'>
+					<input
+                    type="file"
+                    name="image"
+                    class="form-control-file form-control-sm"
+                    accept="image/*"
+                    required
+                    />
+                    <button type='submit' class="text-sm absolute postPositioni text-white bg-black rounded-md font-semibold border-2 px-3 py-1">Post</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Threads -->
+{{#each threads}}
+    <div class="w-2/5 postBackground pt-4 pr-8 pl-8 mt-16 rounded-lg" id="thread-{{id}}">
+        
+
+        <div class="post-container">
+            <div class="w-100 border-t border-gray-700 mt-4 mb-4"></div>
+
+            <div class="flex items-center space-x-2 mb-2">
+                <a href="/profile/{{User.username}}"><img class="h-10 w-10 rounded-full" src="{{User.profilePicture}}" alt="Avatar"></a>
+                <div>
+                    <a href="/profile/{{User.username}}"><p class="text-sm font-semibold text-white">{{User.username}}</p></a>
+                    <span class="text-xs text-gray-400">{{postedTime}}</span>
+                </div>
+            </div>
+            <p class="text-gray-200 mb-4">{{content}}</p>
+            <img class="w-full rounded-lg" src="{{mediaUrl}}" alt="Post Image">
+
+            {{#if errorMessage}}
+                <div class="alert alert-danger">{{errorMessage}}</div>
+            {{/if}}
+            <!-- Like and Comment Icons with counts -->
+            <div class="flex space-x-4 mt-4 mb-4" >
+               <!-- Like Button -->
+            <form action="/toggle-like" method="POST" id="like-form-{{id}}">
+                <input type="hidden" name="threadId" value="{{id}}" />
+                <button 
+                    type="submit" 
+                    id="like-button"
+                    class="flex items-center space-x-1 text-gray-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        id="like-icon"
+                        fill="none" 
+                        stroke="currentColor" stroke-width="2" 
+                        class="h-5 w-5" viewBox="0 0 24 24">
+                        <path d="M12 21.758l-1.485-1.32c-4.74-4.204-7.858-6.976-7.858-10.438 0-3.128 2.343-5.5 5.343-5.5 1.686 0 3.293.848 4.395 2.196 1.102-1.348 2.709-2.196 4.395-2.196 3 0 5.343 2.372 5.343 5.5 0 3.462-3.118 6.234-7.858 10.438l-1.485 1.32z" />
+                    </svg>
+                    <span class="text-sm" id="like-count-{{id}}">{{Likes.length}}</span>
+                </button>
+            </form>
+
+
+        
+
+
+                <!-- Comment Button -->
+                <a type='button' class='btn btn-outline-primary btn-sm position-relative' href='/thread/{{id}}'>
+						
+						<span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary'>
+							{{Comments.length}}
+							<span class='visually-hidden'>Comments</span>
+						</span>
+					</a>
+            </div>
+        </div>
+    </div>
+{{/each}}
+
+
+</main>
+
+
+{{/layout}}
