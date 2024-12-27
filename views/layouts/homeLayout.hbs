@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="assets/css/output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Home</title>
+  <style>
+    /* Sidebar */
+    aside {
+      z-index: 10; /* Higher than the header */
+    }
+    
+    /* Header */
+    header {
+      z-index: 5; /* Lower than the sidebar */
+    }
+
+    .postPosition {
+        top: 5.5rem;
+        right: 30.3rem;
+    }
+
+    .postBackground {
+        background-color: rgb(24,24,24);
+    }
+
+    .notification-sidebar {
+      position: fixed; 
+      top: 0;
+      left: -250px; 
+      width: 250px;
+      height: 100vh; 
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease-in-out; 
+      z-index: 20;
+    }
+    
+    .notification-sidebar.show {
+      left: 250px; 
+    }
+    
+    .notification-content {
+      padding: 20px;
+    }
+    
+    #heart-icon {
+      cursor: pointer;
+      font-size: 30px;
+      background-color: transparent;
+      border: none;
+    }
+    
+    .sidebar-container {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      margin-right: 20px; 
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white h-screen flex">
+    {{{ body }}}
+</body>
+</html>

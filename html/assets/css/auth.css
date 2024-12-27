@@ -1,0 +1,12 @@
+/* Custom background size for better control */
+.custom-bg {
+    background-image: url('https://static.cdninstagram.com/rsrc.php/v3/ye/r/YVr3E4VYzmE.png');
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: -60%;
+}
+ /* Enable vertical scrollbar always */
+body {
+    overflow-y: scroll;
+}

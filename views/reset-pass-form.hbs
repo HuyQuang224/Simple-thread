@@ -1,0 +1,26 @@
+<!-- Email Form -->
+        <div class="w-full space-y-4">
+            <h2 class="text-center text-lg font-semibold">Enter your Threads account email</h2>
+            <form id="formAuthentication" class="space-y-2" action="/resetPass" method="POST">
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    placeholder="Email" 
+                    class="w-full px-6 py-4 bg-gray-900 text-white rounded-xl placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                    oninput="validateEmail()" 
+                    onblur="validateEmail()"
+                    required
+                />
+                <!-- Error Message -->
+                <p id="emailError" class="text-red-500 text-sm hidden">Invalid email address</p>
+                
+                <button 
+                    type="submit" 
+                    class="w-full px-6 py-4 bg-white text-gray-400 rounded-xl font-semibold hover:bg-gray-200"
+                >
+                    Confirm
+                </button>
+            </form>
+            <a class="block text-center text-gray-400">After Confirm, the system will send Password Reset link to your email</a>
+        </div>
