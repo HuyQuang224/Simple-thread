@@ -87,7 +87,7 @@ controller.createThread = async (req, res) => {
 
     try {
       const { content } = req.body; // Lấy nội dung đăng bài từ form
-      const mediaUrl = req.file ? `/uploads/${req.file.filename}` : '/assets/images/sample.jpg'; // Đường dẫn ảnh, nếu không có ảnh, dùng ảnh mặc định
+      const mediaUrl = req.file ? `/uploads/${req.file.filename}` : '/assets/images/anhdaidien.jpg'; // Đường dẫn ảnh, nếu không có ảnh, dùng ảnh mặc định
 
       // Tạo Thread mới
       let newThread = await models.Thread.create({
